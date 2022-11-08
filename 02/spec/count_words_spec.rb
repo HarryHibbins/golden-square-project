@@ -6,8 +6,8 @@ require "count_words"
 
 
 RSpec.describe "count_words method" do 
-    context "given a string" do
-        it "returns the number of words in the string" do
+    context "given a string with one word" do
+        it "return 1 " do
             result = count_words("hello")
             expect(result).to eq 1
         end
