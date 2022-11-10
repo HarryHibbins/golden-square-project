@@ -1,7 +1,7 @@
 require 'diary_entry'
 
 RSpec.describe DiaryEntry do 
-    it "Returns the title of the entry" do
+    it "Constructs a diary entry" do
         diary_entry = DiaryEntry.new("title", "contents")
         result = diary_entry.title()
         expect(result).to eq "title"
@@ -25,26 +25,54 @@ RSpec.describe DiaryEntry do
         expect(result).to eq 2
     end
 
-    it "Returns the first five words, given 2wpm and 2min" do
-        diary_entry = DiaryEntry.new("title", "one two three four five six seven eight nine ten 11 12 13 14 15")
-        result = diary_entry.reading_chunk(2, 2)
-        expect(result).to eq "one two three four"
+
+    describe "#reading_chunk" do 
+
+        it "Returns the first five words, given 2wpm and 2min" do
+            diary_entry = DiaryEntry.new("title", "one two three four five six seven eight nine ten 11 12 13 14 15")
+            result = diary_entry.reading_chunk(2, 2)
+            expect(result).to eq "one two three four"
+        end
+
+        it "Returns the middle five words, given 2wpm and 2min, twice" do
+            diary_entry = DiaryEntry.new("title", "one two three four five six seven eight nine ten 11 12 13 14 15")
+            diary_entry.reading_chunk(2, 2)
+            result = diary_entry.reading_chunk(2, 2)
+            expect(result).to eq "five six seven eight"
+        end
+
+        it "Returns the final five words, given 2wpm and 2min, three times" do
+            diary_entry = DiaryEntry.new("title", "one two three four five six seven eight nine ten 11 12 13 14 15")
+            diary_entry.reading_chunk(2, 2)
+            diary_entry.reading_chunk(2, 2)
+            result = diary_entry.reading_chunk(2, 2)
+            expect(result).to eq "nine ten 11 12"
+        end
+
+        it "Returns the whole block given there is more time than words to read " do
+            diary_entry = DiaryEntry.new("title", "one two three four five")
+            result = diary_entry.reading_chunk(10, 1)
+            expect(result).to eq "one two three four five"
+        end
+
+        it "retarts after reading the whole contents" do
+            diary_entry = DiaryEntry.new("title", "one two three four")
+            diary_entry.reading_chunk(4,1)
+            result = diary_entry.reading_chunk(2,1)
+            expect(result).to eq "one two"
+        end
+
+        it "retarts after reading the whole contents" do
+            diary_entry = DiaryEntry.new("title", "one two three four")
+            diary_entry.reading_chunk(2,1)
+            diary_entry.reading_chunk(2,1)
+            result = diary_entry.reading_chunk(2,1)
+            expect(result).to eq "one two"
+        end
+
+
     end
 
-    it "Returns the middle five words, given 2wpm and 2min, twice" do
-        diary_entry = DiaryEntry.new("title", "one two three four five six seven eight nine ten 11 12 13 14 15")
-        diary_entry.reading_chunk(2, 2)
-        result = diary_entry.reading_chunk(2, 2)
-        expect(result).to eq "five six seven eight"
-    end
-
-    it "Returns the final five words, given 2wpm and 2min, three times" do
-        diary_entry = DiaryEntry.new("title", "one two three four five six seven eight nine ten 11 12 13 14 15")
-        diary_entry.reading_chunk(2, 2)
-        diary_entry.reading_chunk(2, 2)
-        result = diary_entry.reading_chunk(2, 2)
-        expect(result).to eq "nine ten 11 12"
-    end
-
+        
 
 end
