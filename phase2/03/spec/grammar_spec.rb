@@ -18,10 +18,10 @@ RSpec.describe "grammar_check method" do
         end
     end
 
-    context "given a sentence with a capital letter at the start and punctuation" do
+    context "given a sentence with a capital letter at the start and punctuation end" do
         it "returns true" do
         result = grammar_check("Hello.")
-        expect(result).to eq false
+        expect(result).to eq true
         end
     end
 
@@ -29,7 +29,7 @@ RSpec.describe "grammar_check method" do
     context "given a sentence with a capital letter at the start and punctuation" do
         it "returns true" do
         result = grammar_check("Hello, what is your name?")
-        expect(result).to eq false
+        expect(result).to eq true
         end
     end
 
