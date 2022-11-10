@@ -52,8 +52,7 @@ class DiaryEntry
       previous_words_read = @counter * chunk_length
       upper_index = chunk_length + previous_words_read
 
-      # p "upper index: #{upper_index}"
-      # p "count: #{count_words()}"
+ 
       if (upper_index >= count_words())
         @counter = 0
         previous_words_read = @counter * chunk_length
@@ -65,8 +64,3 @@ class DiaryEntry
       return words[previous_words_read...upper_index].join(" ")
     end
   end
-
-  # diary_entry = DiaryEntry.new("title", "one two three four")
-  # p diary_entry.reading_chunk(4,1)
-  # p diary_entry.reading_chunk(2,1)
-
