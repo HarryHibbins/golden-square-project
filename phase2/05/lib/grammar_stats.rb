@@ -3,14 +3,14 @@ class GrammarStats
       # ...
       @pass_count = 0
       @fail_count = 0
-      @counter = 0
+      @total = 0
     end
   
     def check(text) # text is a string
       # Returns true or false depending on whether the text begins with a capital
       # letter and ends with a sentence-ending punctuation mark.
 
-      @counter += 1
+      @total += 1
 
       letters = text.split("")
       first_char = letters[0]
@@ -37,7 +37,7 @@ class GrammarStats
         return 100
       end
 
-      overall = (@pass_count.to_f / @counter) * 100
+      overall = (@pass_count.to_f / @total) * 100
       return overall
 
     end
