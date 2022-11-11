@@ -9,9 +9,9 @@ class TodoList
     end
 
     def view_list
-        @list.each do |task|
-            puts task
-        end
+        # @list.each do |task|
+        #     puts task
+        # end
         return @list
     end
     
